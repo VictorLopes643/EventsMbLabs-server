@@ -11,13 +11,11 @@ export class CreateClientUseCase{
     //Validar se o user existe 
     const clientExist = await prisma.clients.findFirst({
       where: {
-        username: {
-          mode:"insensitive"
-        }
+        username 
       }
     })
     if(clientExist){
-      throw new Error("Client already exists")
+      throw new Error("Cslient already exists");
     }
     //Criptografar senha
     const hashPassword = await hash(password,10);

@@ -30,24 +30,26 @@ model Companies {
 }
 
 model Events {
-  id           String    @id @default(uuid())
-  name         String
-  type         String
-  data         DateTime
-  amount       Int
-  description  String
-  place        String
-  participants String
-  id_companies String
-  companies    Companies @relation(fields: [id_companies], references: [id])
+  id                  String                @id @default(uuid())
+  name                String
+  type                String
+  data                DateTime
+  amount              String
+  description         String
+  place               String
+  id_companies        String
+  companies           Companies?            @relation(fields: [id_companies], references: [id])
+  events_participants Events_Participants[]
 
   @@map("events")
 }
 
 model Events_Participants {
-  id          String  @id @default(uuid())
-  name_client String
-  client      Clients @relation(fields: [name_client], references: [username])
+  id         String   @id @default(uuid())
+  id_clients String
+  clients    Clients? @relation(fields: [id_clients], references: [id])
+  id_events  String?
+  Events     Events?  @relation(fields: [id_events], references: [id])
 
   @@map("events_participants")
 }
