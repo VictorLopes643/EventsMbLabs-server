@@ -4,17 +4,17 @@ import { prisma } from "../../../../database/prismaClient"
 
 
 interface IAuthenticateCompaniesUseCase{
-  username:string,
+  email:string,
   password:string
 }
 
 export class AuthenticateCompaniesUseCase{
     //Receber Username, Password, name_companies
-  async execute({username, password}:IAuthenticateCompaniesUseCase){
+  async execute({email, password}:IAuthenticateCompaniesUseCase){
     //verifica se Username cadastrado
   const companies = await prisma.companies.findFirst({
     where: {
-      username
+      
     }
   })
   if(!companies){
@@ -26,7 +26,7 @@ export class AuthenticateCompaniesUseCase{
     throw new Error("Username or password invalid!")
   }
   //Gerar token
-  const token = sign({username}, "6b00565727c970a2295c60e4dd688788",{
+  const token = sign({email}, "6b00565727c970a2295c60e4dd688788",{
     subject: companies.id,
     expiresIn: "1d"
   })

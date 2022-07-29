@@ -2,17 +2,17 @@ import { prisma } from "../../../../database/prismaClient"
 import { hash } from "bcrypt";
 
 interface ICreateCompaniesUseCase{
-  username:string
+  email:string
   password:string
   name_companies: string
 }
 
 export class CreateCompaniesUseCase{
-  async execute({ username, password, name_companies }:ICreateCompaniesUseCase) {
+  async execute({ email, password, name_companies }:ICreateCompaniesUseCase) {
     //Validar se existe
     const companiesExist = await prisma.companies.findFirst({
       where: {
-        username
+        email
       }
     })
     if(companiesExist){
@@ -23,11 +23,12 @@ export class CreateCompaniesUseCase{
     //Salvar
     const companies = await prisma.companies.create({
       data: {
-        username,
+        email,
         name_companies,
         password: hashPassword
       }
     })
+    console.log(companies)
     return companies
   }
 

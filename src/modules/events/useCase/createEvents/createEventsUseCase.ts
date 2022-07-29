@@ -8,6 +8,7 @@ interface ICreateEventsUseCase{
   amount:string
   description: string
   place: string
+  capa: string
   id_companies: string
 }
 
@@ -19,24 +20,15 @@ export class CreateEventsUseCase {
     amount,
     description,
     place,
+    capa,
     id_companies
   }:ICreateEventsUseCase){
-    //Validando se o evento existe
-    // const nameExist = await prisma.events.findFirst({
-    //   where: {
-    //     name: {
-    //       mode:"insensitive"
-    //     }
-    //   }
-    // })
-    // if(nameExist){
-    //   throw new Error("Event already exist2s");
-    // }
-
-    //
-    console.log("aqui"+ id_companies)
+    console.log("erro capa", capa)
+    if(capa === null){
+    }
     const event = await prisma.events.create({
       data: {
+        capa,
         name,
         type,
         data,

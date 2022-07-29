@@ -1,19 +1,20 @@
 import { prisma } from "../../../../database/prismaClient"
 import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
+import { response } from "express"
 interface IAuthenticateClientUseCase{
-  username:string,
+  email:string,
   password:string
 }
 
 export class AuthenticateClientUseCase {
   //Receber Username, Password
-  async execute({username, password}:IAuthenticateClientUseCase){
+  async execute({email, password}:IAuthenticateClientUseCase){
 
     //verifica se Username cadastrado
     const client = await prisma.clients.findFirst({
       where:{
-        username 
+        email 
       }
     })
     if(!client){
@@ -25,7 +26,7 @@ export class AuthenticateClientUseCase {
       throw new Error("Username or password invalid!")
     }
     //Gerar token
-    const token = sign({username}, "6b00565727c970a2295c60e4dd688766",{
+    const token = sign({email}, "6b00565727c970a2295c60e4dd688766",{
       subject: client.id,
       expiresIn: "1d"
     })

@@ -11,16 +11,11 @@ export class CreateEventsController {
       amount,
       description,
       place,
+      capa,
+      id_companies,
       } = request.body;
-      const { id_companies } = request;
-      // console.log("esse "+id_companies);
-      // console.log("name "+name);
-      // console.log("type"+type);
-      // console.log(" data "+data);
-      // console.log("amount "+amount);
-      // console.log("description "+description);
-      // console.log(" place "+place);
-
+      // const { id_companies } = request;
+ 
       const createEventsUseCase = new CreateEventsUseCase();
 
       const result = await createEventsUseCase.execute({
@@ -30,6 +25,7 @@ export class CreateEventsController {
         amount,
         description,
         place,
+        capa,
         id_companies
       })
       return response.json(result);

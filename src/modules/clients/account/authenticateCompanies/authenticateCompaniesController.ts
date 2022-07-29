@@ -4,12 +4,12 @@ import { AuthenticateCompaniesUseCase } from "./authenticateCompaniesUseCase";
 
 export class AuthenticateCompaniesController {
   async handle(request:Request, response:Response) {
-    const { username, password } = request.body;
+    const { email, password } = request.body;
     
     const authenticateCompaniesUseCase = new AuthenticateCompaniesUseCase();
 
     const result = await authenticateCompaniesUseCase.execute({
-      username,
+      email,
       password,
     })
 

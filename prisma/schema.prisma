@@ -12,7 +12,8 @@ datasource db {
 
 model Clients {
   id                  String                @id @default(uuid())
-  username            String                @unique
+  email               String                @unique
+  name                String
   password            String
   Events_Participants Events_Participants[]
 
@@ -21,7 +22,7 @@ model Clients {
 
 model Companies {
   id             String   @id @default(uuid())
-  username       String   @unique
+  email          String   @unique
   name_companies String   @unique
   password       String
   Events         Events[]
@@ -33,11 +34,12 @@ model Events {
   id                  String                @id @default(uuid())
   name                String
   type                String
-  data                DateTime
+  data                String
   amount              String
   description         String
   place               String
   id_companies        String
+  capa                String
   companies           Companies?            @relation(fields: [id_companies], references: [id])
   events_participants Events_Participants[]
 

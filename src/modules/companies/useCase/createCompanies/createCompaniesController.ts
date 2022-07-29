@@ -5,11 +5,11 @@ import { CreateCompaniesUseCase } from "./createCompaniesUseCase";
 
 export class CreateCompaniesController {
   async handle(request:Request,response:Response) {
-    const { username, password, name_companies } = request.body;
-
+    const { email, password, name_companies } = request.body;
+    
     const createCompaniesUseCase = new CreateCompaniesUseCase();
     const result = await createCompaniesUseCase.execute({
-      username,
+      email,
       name_companies,
       password
     })

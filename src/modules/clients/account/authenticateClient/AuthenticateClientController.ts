@@ -4,16 +4,16 @@ import { AuthenticateClientUseCase } from "./AuthenticateClientUseCase";
 
 export class AuthenticateClientController {
   async handle(request:Request, response:Response) {
-    const { username, password } = request.body;
+    const { email, password } = request.body;
     
     const authenticateClientUseCase = new AuthenticateClientUseCase();
 
-    const result = await authenticateClientUseCase.execute({
-      username,
+    const token = await authenticateClientUseCase.execute({
+      email,
       password
     })
 
-    return response.json(result)
+    return response.json({token})
   }
 
 }
